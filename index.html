@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/slider.css">
     <link rel = "stylesheet" href="css/styles2.css">
+    <link rel = "stylesheet" href="ai/aicss.css">
+
     
 </head>
 <body>
@@ -59,6 +61,29 @@
     <!-- <div class="quiz-container" >
         <button id="playQuizBtn"><span>Play Quiz</span></button>
     </div> -->
+     <!-- Chatbox Button -->
+<div id="chat-button" class="chat-button">
+    💬
+  </div>
+  
+  <!-- Chatbox Container -->
+  <div id="chatbox-container" class="chatbox-container">
+    <div class="chatbox-header">
+      <span>Books & Co. AI Assistant</span>
+      <button id="close-button" class="close-button">×</button>
+    </div>
+    <div id="chatbox-content" class="chatbox-content"></div>
+    <div id="suggested-questions" class="suggested-questions">
+      <span>Suggested Questions:</span>
+      <ul id="suggestions-list"></ul>
+    </div>
+    <div class="input-area">
+      <input type="text" id="chat-input" placeholder="Ask a question..." />
+      <button id="send-button">Send</button>
+    </div>
+  </div>
+  
+  
     
 
     <section class="content">
@@ -234,6 +259,7 @@
     <script src="js/slider.js"></script>
     <script src="js/typing.js"></script>
     <script src="js/testimonials.js"></script>
+    <script src="ai/chatbot.js"></script>
     <script>
         document.getElementById('playQuizBtn').addEventListener('click', function() {
     window.location.href = 'Quiz/quizindex.html';  // Redirect to quizindex.html
