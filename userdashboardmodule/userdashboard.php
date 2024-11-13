@@ -36,6 +36,40 @@ if ($stats_result->num_rows > 0) {
     $pending_requests = $stats['Pending_Requests'];
     $penalties = $stats['Penalties'];
 }
+
+// Fetch account status from the Transactions table
+$account_status_sql = "SELECT account_status FROM Transactions WHERE MID = ?";
+$stmt = $conn->prepare($account_status_sql);
+$stmt->bind_param("s", $membership_id);
+$stmt->execute();
+$account_status_result = $stmt->get_result();
+
+if ($account_status_result->num_rows > 0) {
+    $account_status_row = $account_status_result->fetch_assoc();
+    $account_status = $account_status_row['account_status'];
+} else {
+    // Default value if no status is found
+    $account_status = 'Inactive';
+}
+
+// Fetch next transaction date from the Transactions table
+$next_transaction_date_sql = "SELECT next_date_of_transaction FROM Transactions WHERE MID = ?";
+$stmt = $conn->prepare($next_transaction_date_sql);
+$stmt->bind_param("s", $membership_id);
+$stmt->execute();
+$next_transaction_result = $stmt->get_result();
+
+if ($next_transaction_result->num_rows > 0) {
+    $next_transaction_row = $next_transaction_result->fetch_assoc();
+    $next_transaction_date = $next_transaction_row['next_date_of_transaction'];
+} else {
+    // Default value if no transaction date is found
+    $next_transaction_date = 'N/A';  // You can set a default value or handle it as needed
+}
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +81,7 @@ if ($stats_result->num_rows > 0) {
     <link rel="icon" href="../images/logofile/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/dashboard.css">
+    <!-- <link rel="stylesheet" href="../ai/aicss.css"> -->
 </head>
 <body>
     <header>
@@ -72,6 +107,27 @@ if ($stats_result->num_rows > 0) {
             </div>
         </nav>
     </header>
+    Chatbox Button
+<div id="chat-button" class="chat-button">
+    💬
+  </div>
+  
+  <!-- Chatbox Container -->
+  <!-- <div id="chatbox-container" class="chatbox-container">
+    <div class="chatbox-header">
+      <span>Books & Co. AI Assistant</span>
+      <button id="close-button" class="close-button">×</button>
+    </div>
+    <div id="chatbox-content" class="chatbox-content"></div>
+    <div id="suggested-questions" class="suggested-questions">
+      <span>Suggested Questions:</span>
+      <ul id="suggestions-list"></ul>
+    </div>
+    <div class="input-area">
+      <input type="text" id="chat-input" placeholder="Ask a question..." />
+      <button id="send-button">Send</button>
+    </div>
+</div> -->
 
     <div class="main-content">
         <!-- Welcome message with user's first name -->
@@ -111,8 +167,8 @@ if ($stats_result->num_rows > 0) {
     <div class="payment-details">
         <div><strong>Plan:</strong> <?php echo htmlspecialchars($plan_name); ?></div>
         <div><strong>Amount:</strong> ₹<?php echo htmlspecialchars($plan_amount); ?></div>
-        <div><strong>Next Payment Date:</strong> <?php echo htmlspecialchars($next_payment_date); ?></div>
-        <button class="pay-now-button">Pay Now</button>
+        <!-- <div><strong>Next Payment Date:</strong>  <p><?php echo htmlspecialchars($next_transaction_date); ?></p></div> -->
+        <!-- <button class="pay-now-button">Pay Now</button> -->
     </div>
 </section>
 
@@ -215,7 +271,10 @@ if ($stats_result->num_rows > 0) {
 
         const firstName = "<?php echo $first_name; ?>";
         console.log("First Name: " + firstName);
+        
+        
     </script>
+    <!-- <script src="../ai/chatbot.js"></script> -->
     <script src="../js/userdashboardtyping.js"></script>
 </body>
 </html>
