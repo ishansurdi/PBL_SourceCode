@@ -27,7 +27,7 @@ function toggleChat() {
 // Function to send a request to the Gemini API
 async function sendMessageToGemini(message) {
     try {
-        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDca1GQZGYemvIKzls5WcM0lBOVeR3lquU', {
+        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
