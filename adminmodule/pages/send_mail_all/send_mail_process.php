@@ -40,7 +40,7 @@ function sendEmail($email, $subject, $body, $date, $announcement_type, $sequence
         $mail->Host = 'smtp.gmail.com'; // Your SMTP server
         $mail->SMTPAuth = true;
         $mail->Username = 'do.not.reply.test.2023@gmail.com'; // Your SMTP username
-        $mail->Password = 'pnutrnitqdoslrqr'; // Your SMTP password
+        $mail->Password = ''; // Your SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Use TLS if available
         $mail->Port = 587; // Use 587 for TLS
 
